@@ -2,23 +2,20 @@ ARG ROS_VERSION=galactic
 FROM ghcr.io/aica-technology/ros2-control-libraries:${ROS_VERSION} as pybullet
 
 RUN sudo pip3 install pybullet
+RUN sudo ldconfig
 
 FROM pybullet as network-interfaces
-
-RUN sudo ldconfig
 
 WORKDIR /tmp
 RUN git clone -b v1.1.0 --depth 1 https://github.com/aica-technology/network-interfaces.git && \
     cd network-interfaces && sudo bash install.sh --auto --no-cpp
 RUN rm -rf /tmp/network-interfaces
 
-
 FROM network-interfaces as robot-descriptions
 
 WORKDIR ${ROS2_WORKSPACE}
 COPY --chown=${USER} ./robot_descriptions/ ./src/
 RUN /bin/bash -c "source /opt/ros/${ROS_DISTRO}/setup.bash; colcon build --symlink-install"
-
 
 FROM robot-descriptions as install-source
 
@@ -32,3 +29,6 @@ RUN sudo pip3 install --editable ./pybullet_zmq
 
 # Clean image
 RUN sudo apt-get clean && sudo rm -rf /var/lib/apt/lists/*
+
+# Automatically startup the simulator
+ENTRYPOINT python3 pybullet_zmq/bin/zmq-simulator

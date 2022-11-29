@@ -32,8 +32,14 @@ If you create files within the container that are relevant (for example RViz con
 docker cp aica-technology-zmq-simulator-runtime:/home/<user>/path/within/container/ /host/path/target
 ```
 
-### SSH server for remote development
+# Start the Simulation
+In case, the docker does not automatically start up the simulator, it can be run via:
 
+``` console
+python3 pybullet_zmq/bin/zmq-simulator
+```
+
+### SSH server for remote development
 To start up an SSH server in the background for remote development, run
 
 ```console
