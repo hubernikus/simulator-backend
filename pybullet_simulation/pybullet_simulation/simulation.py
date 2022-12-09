@@ -44,7 +44,8 @@ class Simulation(object):
         if gui:
             self._log_info("[Simulation::init] Running PyBullet with GUI")
             self._log_info("-------------------------")
-            self._uid = pb.connect(pb.GUI, options=gui_options)
+            $ self._uid = pb.connect(pb.GUI, options=gui_options)
+            self._uid = pb.connect(pb.GUI_SERVER, options=gui_options)
         else:
             self._log_info("[Simulation::init] Running PyBullet without GUI")
             self._log_info("-------------------------")
