@@ -31,4 +31,5 @@ RUN sudo pip3 install --editable ./pybullet_zmq
 RUN sudo apt-get clean && sudo rm -rf /var/lib/apt/lists/*
 
 # Automatically startup the simulator
-ENTRYPOINT python3 pybullet_zmq/bin/zmq-simulator
+# ENTRYPOINT python3 pybullet_zmq/bin/zmq-simulator
+ENTRYPOINT bash
