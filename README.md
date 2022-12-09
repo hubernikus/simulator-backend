@@ -1,8 +1,15 @@
 # simulator-backend
 
-## Setup
-Make sure you pull the git-module including submodules:
+To clone the repository with submodules, run
 
-``` shell
+```console
 git clone --recurse-submodules git@github.com:epfl-lasa/simulator-backend.git
+```
+
+or
+
+```console
+git clone git@github.com:epfl-lasa/simulator-backend.git
+git submodule init
+git submodule update
 ```
