@@ -16,7 +16,15 @@ class Simulation(object):
         - add_pybullet_path
     """
 
-    def __init__(self, gui=True, gui_options="", start_paused=False, log_info=print, log_warn=print, log_err=print):
+    def __init__(
+        self,
+        gui=True,
+        gui_options="",
+        start_paused=False,
+        log_info=print,
+        log_warn=print,
+        log_err=print,
+    ):
         """
         Constructor of the Simulation class. This class creates the PyBullet server / GUI and steps the simulation.
 
@@ -33,9 +41,15 @@ class Simulation(object):
         :type log_warn: T
         :type log_err: T
         """
-        assert isinstance(gui, bool), "[Simulation::init] Argument 'gui' has an incorrect type."
-        assert isinstance(gui_options, str), "[Simulation::init] Argument 'gui_options' has an incorrect type."
-        assert isinstance(start_paused, bool), "[Simulation::init] Argument 'start_paused' has an incorrect type."
+        assert isinstance(
+            gui, bool
+        ), "[Simulation::init] Argument 'gui' has an incorrect type."
+        assert isinstance(
+            gui_options, str
+        ), "[Simulation::init] Argument 'gui_options' has an incorrect type."
+        assert isinstance(
+            start_paused, bool
+        ), "[Simulation::init] Argument 'start_paused' has an incorrect type."
 
         self._log_info = log_info
         self._log_warn = log_warn
@@ -45,7 +59,7 @@ class Simulation(object):
             self._log_info("[Simulation::init] Running PyBullet with GUI")
             self._log_info("-------------------------")
             # self._uid = pb.connect(pb.GUI, options=gui_options)
-            self._uid = pb.connect(pb.SHARED_MEMORY, options=gui_options)
+            self._uid = pb.connect(pb.GUI_SERVER, options=gui_options)
         else:
             self._log_info("[Simulation::init] Running PyBullet without GUI")
             self._log_info("-------------------------")
@@ -96,14 +110,21 @@ class Simulation(object):
         :return: Boolean if action was successful
         :rtype: bool
         """
-        assert isinstance(path, str), "[Simulation::add_search_path] Parameter 'path' has an incorrect type."
+        assert isinstance(
+            path, str
+        ), "[Simulation::add_search_path] Parameter 'path' has an incorrect type."
         if os.path.isdir(path):
             pb.setAdditionalSearchPath(path)
-            self._log_info("[Simulation::add_search_path] Added {} to PyBullet path.".format(path))
+            self._log_info(
+                "[Simulation::add_search_path] Added {} to PyBullet path.".format(path)
+            )
             return True
         else:
             self._log_err(
-                "[Simulation::add_search_path] Error adding to PyBullet path! {} not a directory.".format(path))
+                "[Simulation::add_search_path] Error adding to PyBullet path! {} not a directory.".format(
+                    path
+                )
+            )
             return False
 
     @staticmethod
